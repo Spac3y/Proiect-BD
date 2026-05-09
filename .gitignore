@@ -4,3 +4,4 @@ temp/
 .DS_STORE
 .venv
 *test*
+__pycache__
