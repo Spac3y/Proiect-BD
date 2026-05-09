@@ -105,11 +105,13 @@ def post_comanda():
 def admin_login():
 	d = request.get_json()
 	conn = db()
+	check = False
 	with conn.cursor() as cur:
 		cur.execute("SELECT * FROM Admini WHERE username=%s AND pass=%s", (d.get('admin','pass'),))
 		admin = cur.fetchone()
+		if admin: check = True
 	conn.close()
-	if admin:
+	if check:
 		session['admin'] = d['username']
 		return jsonify({'success': True, 'username': d['username']})
 	return jsonify({'error': 'Invalid credentials'}), 401
