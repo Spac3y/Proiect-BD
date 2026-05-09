@@ -2,9 +2,9 @@
 
 # Magazin de rochii elegante 
 
-### Membri echipei 
-- Gavanescu Vlad-Alexandru 421F
-- Gilca Matei-Stelian 423F
+### Membrii echipei 
+- Găvănescu Vlad-Alexandru 421F
+- Gîlcă Matei-Stelian 423F
 - Eremeico Anastasia 423F
 
 ## Pls read ONBOARDING.md echipa
