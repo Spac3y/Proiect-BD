@@ -1,0 +1,4 @@
+pip freeze > temp.txt
+pip install -r temp.txt --upgrade
+rm temp.txt
+python main.py

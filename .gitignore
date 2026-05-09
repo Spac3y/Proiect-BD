@@ -1,0 +1,6 @@
+.env
+.vscode
+temp/
+.DS_STORE
+.venv
+*test*
