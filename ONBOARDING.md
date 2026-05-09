@@ -18,5 +18,5 @@
 # Excludere fisiere
 ### Daca apar fisiere la care nu vrei sa dai commit (script-uri de test, etc.), update .gitignore
 ## Sfaturi
-- `*.extensie` va exclude toate fisiere cu .extensie
-- 'nume_folder/` va exclude tot ce este in nume_folder inclusiv folderul
+- `*.extensie` va exclude toate fisiere cu `.extensie`
+- `nume_folder/` va exclude tot ce este in `nume_folder` inclusiv folderul
