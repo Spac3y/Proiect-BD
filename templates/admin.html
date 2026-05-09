@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin — Maison</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="{{ url_for('static', filename='script.js') }}" defer ></script>
+	<style>
+		.login-page {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #111;
+		}
+
+		.login-box {
+			background: #fff;
+			padding: 2.5rem;
+			width: 340px;
+		}
+
+		.login-box h1 {
+			text-align: center;
+			margin-bottom: 1.5rem;
+			font-size: 1.3rem;
+		}
+
+		.dash-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 2rem;
+			height: 56px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.dash-body {
+			max-width: 1100px;
+			margin: 2rem auto;
+			padding: 0 2rem;
+		}
+
+		.stats {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		.stat {
+			border: 1px solid #ddd;
+			padding: 1.2rem;
+		}
+
+		.stat span {
+			display: block;
+			font-size: 0.72rem;
+			color: #888;
+			text-transform: uppercase;
+			margin-bottom: 0.4rem;
+		}
+
+		.stat strong {
+			font-size: 1.5rem;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.84rem;
+		}
+
+		th {
+			font-size: 0.72rem;
+			text-transform: uppercase;
+			color: #888;
+			text-align: left;
+			padding: 0.5rem 0.8rem;
+			border-bottom: 2px solid #ddd;
+		}
+
+		td {
+			padding: 0.75rem 0.8rem;
+			border-bottom: 1px solid #eee;
+		}
+
+		tr:hover td {
+			background: #fafafa;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- LOGIN -->
+	<div id="login-section">
+		<div class="login-page">
+			<div class="login-box">
+				<h1>Admin Login</h1>
+				<div class="msg" id="login-msg"></div>
+				<div class="form-group"><label>Username</label><input type="text" id="l-user" placeholder="admin"
+						autofocus></div>
+				<div class="form-group"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••"
+						onkeydown="if(event.key==='Enter')adminLogin()"></div>
+				<button class="btn" onclick="adminLogin()" style="width:100%">Sign In</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- DASHBOARD -->
+	<div id="dash-section" style="display:none">
+		<div class="dash-header">
+			<strong>Maison — Admin</strong>
+			<div style="display:flex;align-items:center;gap:1rem">
+				<span style="font-size:0.82rem;color:#888" id="dash-user"></span>
+				<button class="btn btn-outline" onclick="adminLogout()"
+					style="padding:0.4rem 1rem;font-size:0.8rem">Logout</button>
+			</div>
+		</div>
+
+		<div class="dash-body">
+			<div class="stats">
+				<div class="stat"><span>Total Orders</span><strong id="s-total">—</strong></div>
+				<div class="stat"><span>Pending</span><strong id="s-pending">—</strong></div>
+				<div class="stat"><span>Revenue</span><strong id="s-revenue">—</strong></div>
+			</div>
+
+			<div class="spinner" id="dash-spinner"></div>
+			<table id="orders-table" style="display:none">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Date</th>
+						<th>Client</th>
+						<th>Phone</th>
+						<th>Product</th>
+						<th>Qty</th>
+						<th>Unit Price</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody id="orders-body"></tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
