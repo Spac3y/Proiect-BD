@@ -9,22 +9,18 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.config['MYSQL_HOST']     = os.getenv('MYSQL_HOST')
-app.config['MYSQL_PORT']     = os.getenv('MYSQL_PORT')
-app.config['MYSQL_USER']     = os.getenv('MYSQL_USER')
-app.config['MYSQL_DB']       = os.getenv('MYSQL_DB')
-app.config['SECRET_KEY']     = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = 'SECRET_KEY'
+# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default-dev-key') -- one less possible error
 
 CORS(app, supports_credentials=True)
 db_config = {
 	'host':     os.getenv('MYSQL_HOST', 'localhost'),
 	'port':     int(os.getenv('MYSQL_PORT', 3306)),
-	'user':     os.getenv('MYSQL_USER', 'root'),
-	'password': os.getenv('MYSQL_PASSWORD', ''),
-	'database': os.getenv('MYSQL_DB', 'magazin_rochii'),
+	'user':     os.getenv('MYSQL_USER'),
+	'password': os.getenv('MYSQL_PASSWORD'),
+	'database': os.getenv('MYSQL_DB'),
 	'cursorclass': pymysql.cursors.DictCursor
 }
-
 def db():
 	conn = pymysql.connect(**db_config)
 	return conn
@@ -52,7 +48,7 @@ def get_produse():
 	conn = db()
 	with conn.cursor() as cur:
 		cur.execute("""
-			SELECT p.id_produs, p.nume, p.pret, p.stoc, p.marime, p.descriere, p.imagine_url, c.nume_categorie
+			SELECT p.id_produs, p.nume, p.pret, p.stoc, p.marime, p.imagine_url, c.nume_categorie
 			FROM Produse p LEFT JOIN Categorii c ON p.id_categorie = c.id_categorie
 		""")
 		rows = cur.fetchall()
@@ -128,15 +124,15 @@ def admin_comenzi():
 	conn = db()
 	with conn.cursor() as cur:
 		cur.execute("""
-			SELECT co.id_comanda, co.data_comanda, co.status, co.total,
-				cl.nume AS client_nume, cl.telefon, cl.adresa,
-				p.nume AS produs_nume, d.cantitate, d.pret_unitar
-			FROM Comenzi co
-			JOIN Clienti cl ON co.id_client=cl.id_client
-			JOIN Detalii_Comanda d ON d.id_comanda=co.id_comanda
-			JOIN Produse p ON p.id_produs=d.id_produs
-			ORDER BY co.data_comanda DESC
-		""")
+            SELECT co.id_comanda, co.data_comanda, co.status_comanda AS status, co.total,
+                cl.nume AS client_nume, cl.telefon, cl.adresa,
+                p.nume AS produs_nume, d.cantitate, d.pret_unitar
+            FROM Comenzi co
+            JOIN Clienti cl ON co.id_client=cl.id_client
+            JOIN Detalii_Comanda d ON d.id_comanda=co.id_comanda
+            JOIN Produse p ON p.id_produs=d.id_produs
+            ORDER BY co.data_comanda DESC
+        """)
 		rows = cur.fetchall()
 	conn.close()
 	for r in rows:
@@ -144,4 +140,4 @@ def admin_comenzi():
 	return jsonify(rows)
 
 if __name__ == '__main__':
-	app.run(debug=True, port=5111)
+	app.run(host='0.0.0.0', debug=True, port=5000)
