@@ -10,7 +10,6 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRET_KEY'
-# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default-dev-key') -- one less possible error
 
 CORS(app, supports_credentials=True)
 db_config = {
