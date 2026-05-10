@@ -20,7 +20,7 @@ create table if not exists Produse (
 create table if not exists Clienti (
 	id_client int primary key not null auto_increment,
     nume text not null,
-    parola text not null,
+    parola text default null,
     telefon text not null,
     adresa text not null
 );
@@ -28,8 +28,8 @@ create table if not exists Clienti (
 create table if not exists Comenzi (
 	id_comanda int primary key not null auto_increment,
     id_client int,
-    data_comanda datetime not null,
-    status_comanda text not null,
+    data_comanda datetime default current_timestamp,
+    status_comanda varchar(50) default 'in asteptare',
     total real not null,
     foreign key (id_client) references Clienti(id_client)
 );
