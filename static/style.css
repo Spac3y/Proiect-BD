@@ -41,3 +41,94 @@ label { display: block; font-size: 0.78rem; color: #666; margin-bottom: 0.3rem; 
 
 .spinner { display: none; text-align: center; padding: 2rem; color: #888; }
 .spinner.show { display: block; }
+
+.filter-btn, .color-btn {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.filter-btn:hover, .color-btn:hover {
+    background: #eee;
+    border-color: #bbb;
+}
+
+/* Style for the active/selected button */
+button[style*="font-weight:bold"], 
+button[style*="font-weight: bold"] {
+    background: #333 !important;
+    color: white !important;
+    border-color: #333 !important;
+}
+
+/* 1. Center everything and stop it from stretching too wide */
+#grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    /* This tells the grid: "Make columns at least 280px wide, but fit as many as possible" */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* 2. Fix the Card Style */
+.card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* 3. Force the Image to be a Portrait Rectangle (Crucial Fix) */
+.card img {
+    width: 100%;
+    height: 550px; /* Fixed height for consistency */
+    object-fit: cover; /* This crops the image to fill the space without stretching it */
+    /* object-position: top; */
+    object-position: center 15%;
+    display: block;
+    background-color: #f9f9f9;
+}
+
+/* 4. Improve the Text Padding */
+.card-body {
+    padding: 15px;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-cat {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.card-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.card-price {
+    font-weight: bold;
+    color: #333;
+}
