@@ -153,6 +153,14 @@
 
 	<h1>All Dresses</h1>
 	<div class="spinner" id="spinner"></div>
+
+	<div class="filter-bar" style="text-align: center; padding: 1rem; border-bottom: 1px solid #eee; margin-bottom: 1rem;">
+		<button class="filter-btn active" onclick="filterCategory('All', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px; font-weight: bold;">All</button>
+		<button class="filter-btn" onclick="filterCategory('De seara', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px;">Evening Dresses</button>
+		<button class="filter-btn" onclick="filterCategory('De zi', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px;">Day Dresses</button>
+		<button class="filter-btn" onclick="filterCategory('Cocktail', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px;">Cocktail</button>
+	</div>
+
 	<div class="grid" id="grid"></div>
 
 	<!-- Modal -->
@@ -195,7 +203,11 @@
 	<footer>
 		<p>© 2026 Maison. All rights reserved.</p>
 	</footer>
-	<script>loadProducts();</script>
+	<script>
+        window.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+        });
+    </script>
 </body>
 
 </html>
