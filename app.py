@@ -107,7 +107,7 @@ def admin_login():
 	conn = db()
 	check = False
 	with conn.cursor() as cur:
-		cur.execute("SELECT * FROM Admini WHERE username=%s AND pass=%s", (d.get('admin','pass'),))
+		cur.execute("SELECT * FROM Admini WHERE username=%s AND parola=%s", (d.get('username'), d.get('parola')))
 		admin = cur.fetchone()
 		if admin: check = True
 	conn.close()
