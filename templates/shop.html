@@ -154,12 +154,29 @@
 	<h1>All Dresses</h1>
 	<div class="spinner" id="spinner"></div>
 
-	<div class="filter-bar" style="text-align: center; padding: 1rem; border-bottom: 1px solid #eee; margin-bottom: 1rem;">
-		<button class="filter-btn active" onclick="filterCategory('All', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px; font-weight: bold;">All</button>
-		<button class="filter-btn" onclick="filterCategory('De seara', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px;">Evening Dresses</button>
-		<button class="filter-btn" onclick="filterCategory('De zi', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px;">Day Dresses</button>
-		<button class="filter-btn" onclick="filterCategory('Cocktail', this)" style="background:none; border:none; cursor:pointer; margin: 0 10px;">Cocktail</button>
-	</div>
+	<div class="filters-container" style="max-width: 1200px; margin: 0 auto; padding: 20px; text-align: center;">
+    
+    <div class="filter-group" style="margin-bottom: 15px;">
+        <span style="font-weight: bold; margin-right: 15px; color: #333;">Categories:</span>
+        <button class="filter-btn" onclick="filterCategory('All', this)" style="font-weight:bold">All</button>
+        <button class="filter-btn" onclick="filterCategory('Evening', this)">Evening</button>
+        <button class="filter-btn" onclick="filterCategory('Daywear', this)">Daywear</button>
+        <button class="filter-btn" onclick="filterCategory('Bridal', this)">Bridal</button>
+    </div>
+
+    <div class="filter-group">
+        <span style="font-weight: bold; margin-right: 15px; color: #333;">Colors:</span>
+        <button class="color-btn" onclick="filterByColor('All', this)" style="font-weight:bold">All</button>
+        <button class="color-btn" onclick="filterByColor('Black', this)">Black</button>
+        <button class="color-btn" onclick="filterByColor('White', this)">White</button>
+        <button class="color-btn" onclick="filterByColor('Red', this)">Red</button>
+        <button class="color-btn" onclick="filterByColor('Blue', this)">Blue</button>
+    </div>
+    
+</div>
+
+<div class="grid" id="grid">
+    </div>
 
 	<div class="grid" id="grid"></div>
 
