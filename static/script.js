@@ -214,38 +214,61 @@ async function adminLogout() {
 async function loadOrders() {
   const spinner = document.getElementById('dash-spinner');
   if (!spinner) return;
-  spinner.className = 'spinner show'; spinner.textContent = 'Loading...';
+  spinner.className = 'spinner show';
 
   try {
-    const res    = await fetch(`${API}/api/admin/comenzi`, { credentials: 'include' });
+    const res = await fetch(`${API}/api/admin/comenzi`, { credentials: 'include' });
     const orders = await res.json();
     spinner.className = 'spinner';
 
-    document.getElementById('s-total').textContent   = orders.length;
-    document.getElementById('s-pending').textContent = orders.filter(o => o.status === 'in asteptare').length;
-    document.getElementById('s-revenue').textContent = orders.reduce((s,o) => s + parseFloat(o.total), 0).toFixed(2) + ' RON';
+    // Actualizare statistici
+    document.getElementById('s-total').textContent = orders.length;
+    document.getElementById('s-revenue').textContent = orders.reduce((s, o) => s + parseFloat(o.total), 0).toFixed(2) + ' RON';
 
     const body = document.getElementById('orders-body');
     if (!orders.length) {
-      body.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#888;padding:2rem">No orders yet.</td></tr>';
+      body.innerHTML = '<tr><td colspan="11" style="text-align:center;padding:2rem">No orders yet.</td></tr>';
     } else {
       body.innerHTML = orders.map(o => `
         <tr>
           <td>#${o.id_comanda}</td>
           <td>${o.data_comanda}</td>
           <td>${o.client_nume}</td>
-          <td>${o.telefon}</td>
-          <td>${o.adresa}</td>
-          <td>${o.produs_nume}</td>
+          <td>${o.telefon}</td> <td>${o.adresa}</td>  <td>${o.produs_nume}</td>
           <td>${o.cantitate}</td>
           <td>${parseFloat(o.pret_unitar).toFixed(2)}</td>
           <td><strong>${parseFloat(o.total).toFixed(2)} RON</strong></td>
+          <td>
+            <select onchange="updateStatus(${o.id_comanda}, this.value)" style="font-size:0.8rem;">
+                <option value="in asteptare" ${o.status === 'in asteptare' ? 'selected' : ''}>În așteptare</option>
+                <option value="expediat" ${o.status === 'expediat' ? 'selected' : ''}>Expediat</option>
+                <option value="livrat" ${o.status === 'livrat' ? 'selected' : ''}>Livrat</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="deleteOrder(${o.id_comanda})" class="btn" style="padding:4px 8px; background:#c0392b; font-size:0.7rem;">Delete</button>
+          </td>
         </tr>
       `).join('');
     }
     document.getElementById('orders-table').style.display = 'table';
+  } catch (e) { console.error('Load orders failed'); }
+}
 
-  } catch (e) {
-    spinner.textContent = 'Failed to load orders.';
-  }
+// ── ADMIN ACTIONS (UPDATE & DELETE) ─────────────────────────────────────────
+
+async function updateStatus(id, newStatus) {
+    await fetch(`${API}/api/admin/comanda/${id}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+        credentials: 'include'
+    });
+    loadOrders();
+}
+
+async function deleteOrder(id) {
+    if(!confirm('Delete this order?')) return;
+    await fetch(`${API}/api/admin/comanda/${id}`, { method: 'DELETE', credentials: 'include' });
+    loadOrders();
 }
