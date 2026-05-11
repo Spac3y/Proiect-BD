@@ -3,6 +3,7 @@ USE store;
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE Detalii_Comanda;
 TRUNCATE TABLE Comenzi;
+TRUNCATE TABLE Clienti;
 TRUNCATE TABLE Produse;
 TRUNCATE TABLE Categorii;
 SET FOREIGN_KEY_CHECKS = 1;
@@ -37,3 +38,10 @@ INSERT INTO Produse (nume, pret, stoc, marime, culoare, imagine_url, id_categori
 ('ROSIE dress', 720.00, 9, 'S,M,L', 'Blue', '/static/uploads/ROSIE.jpeg', 1),
 ('SERAFINA dress', 680.00, 9, 'S,M,L', 'White', '/static/uploads/SERAFINA.jpeg', 1),
 ('STELLA dress', 490.00, 11, 'S,M', 'White', '/static/uploads/STELLA.jpeg', 1);
+
+INSERT INTO Clienti (id_client, nume, telefon, adresa) VALUES
+(1, 'Maria Ionescu',   '0721234567', 'Str. Florilor 12, Cluj-Napoca'),
+(2, 'Elena Popescu',   '0732345678', 'Bd. Unirii 45, București'),
+(3, 'Ana Constantin',  '0743456789', 'Str. Mihai Eminescu 8, Iași'),
+(4, 'Cristina Dănilă', '0754567890', 'Aleea Trandafirilor 3, Timișoara'),
+(5, 'Laura Marinescu', '0765678901', 'Str. Victoriei 22, Brașov');
