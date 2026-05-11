@@ -252,6 +252,11 @@ async function loadOrders() {
       `).join('');
     }
     document.getElementById('orders-table').style.display = 'table';
+
+    const stocRes = await fetch(`${API}/api/admin/stoc-mic`, { credentials: 'include' });
+    const stocMic = await stocRes.json();
+    document.getElementById('stoc-mic-list').innerHTML =
+      stocMic.length ? stocMic.map(p => `<li>${p.nume} — ${p.stoc} left</li>`).join('') : '<li style="color:#888">All products have sufficient stock.</li>';
   } catch (e) { console.error('Load orders failed'); }
 }
 

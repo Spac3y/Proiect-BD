@@ -126,7 +126,9 @@ def admin_comenzi():
 	conn = db()
 	with conn.cursor() as cur:
 		cur.execute("""
-            SELECT co.id_comanda, co.data_comanda, co.status_comanda AS status, co.total,
+            SELECT co.id_comanda,
+                DATE_FORMAT(co.data_comanda, '%d.%m.%Y %H:%i') AS data_comanda,
+                co.status_comanda AS status, co.total,
                 cl.nume AS client_nume, cl.telefon, cl.adresa,
                 p.nume AS produs_nume, d.cantitate, d.pret_unitar
             FROM Comenzi co
@@ -137,8 +139,6 @@ def admin_comenzi():
         """)
 		rows = cur.fetchall()
 	conn.close()
-	for r in rows:
-		r['data_comanda'] = r['data_comanda'].strftime('%d.%m.%Y %H:%M')
 	return jsonify(rows)
 
 # =====================================================================
@@ -183,6 +183,21 @@ def admin_stats():
         stats['premium'] = cur.fetchall()
     conn.close()
     return jsonify(stats)
+
+@app.route('/api/admin/stoc-mic')
+def stoc_mic():
+    if not session.get('admin'): return jsonify({'error': 'Unauthorized'}), 401
+    conn = db()
+    with conn.cursor() as cur:
+        cur.execute("""
+            SELECT nume, stoc, pret
+            FROM Produse
+            WHERE stoc < 5
+            ORDER BY stoc ASC
+        """)
+        rows = cur.fetchall()
+    conn.close()
+    return jsonify(rows)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', debug=True, port=5000)
