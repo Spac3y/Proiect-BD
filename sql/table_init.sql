@@ -20,7 +20,6 @@ create table if not exists Produse (
 create table if not exists Clienti (
 	id_client int primary key not null auto_increment,
     nume text not null,
-    parola text default null, 
     telefon text not null,
     adresa text not null
 );
