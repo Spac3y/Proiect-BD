@@ -9,7 +9,7 @@
 
 ## Pls read ONBOARDING.md echipa
 
-#TODO:
-# Tweak dress parameters
-# Adjust prices to current economy
-# Eat cookie, drink milk
+##TODO:
+Tweak dress parameters
+Adjust prices to current economy
+Eat cookie, drink milk
