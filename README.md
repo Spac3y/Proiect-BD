@@ -11,11 +11,13 @@
 
 ## TODO:
 
-[_] Complete project requirements 
+[_] Add & Delete Data from website
 
 [_] Use all fields in Clienti
 
-[_] Add client address to admin page
+[_] Add client address to admin page (3 links between 2 tables)
+
+[_] Add 1 link between 3 tables
 
 [_] Beautify the landing page
 
