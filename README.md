@@ -19,6 +19,6 @@
 
 [_] Beautify the landing page
 
-[_] Tweak dress parameters (e.g.: adjust prices to current economy)
+[x] Tweak dress parameters (e.g.: adjust prices to current economy)
 
 [x] Eat cookie, drink milk
