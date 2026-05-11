@@ -10,6 +10,8 @@
 ## Pls read ONBOARDING.md echipa
 
 ## TODO:
+Beautify the landing page
+
 Tweak dress parameters
 
 Adjust prices to current economy
