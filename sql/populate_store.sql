@@ -45,3 +45,22 @@ INSERT INTO Clienti (id_client, nume, telefon, adresa) VALUES
 (3, 'Ana Constantin',  '0743456789', 'Str. Mihai Eminescu 8, Iași'),
 (4, 'Cristina Dănilă', '0754567890', 'Aleea Trandafirilor 3, Timișoara'),
 (5, 'Laura Marinescu', '0765678901', 'Str. Victoriei 22, Brașov');
+
+-- id_produs: 1=AMALIA(640), 5=BELLA(500), 7=DALILA(870), 13=GIULIA(750), 20=PATRIZIA(750), 22=RAFFAELLA(1000), 25=STELLA(490)
+INSERT INTO Comenzi (id_comanda, id_client, data_comanda, status_comanda, total) VALUES
+(1, 1, '2026-04-10 10:30:00', 'livrata',      640.00),
+(2, 2, '2026-04-15 14:22:00', 'in asteptare', 870.00),
+(3, 3, '2026-04-20 09:15:00', 'in asteptare', 1500.00),
+(4, 4, '2026-04-25 16:45:00', 'livrata',      1000.00),
+(5, 5, '2026-05-01 11:00:00', 'in asteptare', 490.00),
+(6, 1, '2026-05-05 13:30:00', 'in asteptare', 750.00),
+(7, 2, '2026-05-08 17:00:00', 'livrata',      1000.00);
+
+INSERT INTO Detalii_Comanda (id_comanda, id_produs, id_client, cantitate, pret_unitar) VALUES
+(1, 1,  1, 1, 640.00),
+(2, 7,  2, 1, 870.00),
+(3, 20, 3, 2, 750.00),
+(4, 22, 4, 1, 1000.00),
+(5, 25, 5, 1, 490.00),
+(6, 13, 1, 1, 750.00),
+(7, 5,  2, 2, 500.00);
