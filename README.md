@@ -10,10 +10,8 @@
 ## Pls read ONBOARDING.md echipa
 
 ## TODO:
-Beautify the landing page
+[ ] Beautify the landing page
 
-Tweak dress parameters
+[ ] Tweak dress parameters (e.g.: adjust prices to current economy)
 
-Adjust prices to current economy
-
-Eat cookie, drink milk
+[x] Eat cookie, drink milk
