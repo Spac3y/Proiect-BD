@@ -227,7 +227,7 @@ async function loadOrders() {
 
     const body = document.getElementById('orders-body');
     if (!orders.length) {
-      body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#888;padding:2rem">No orders yet.</td></tr>';
+      body.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#888;padding:2rem">No orders yet.</td></tr>';
     } else {
       body.innerHTML = orders.map(o => `
         <tr>
@@ -235,6 +235,7 @@ async function loadOrders() {
           <td>${o.data_comanda}</td>
           <td>${o.client_nume}</td>
           <td>${o.telefon}</td>
+          <td>${o.adresa}</td>
           <td>${o.produs_nume}</td>
           <td>${o.cantitate}</td>
           <td>${parseFloat(o.pret_unitar).toFixed(2)}</td>
