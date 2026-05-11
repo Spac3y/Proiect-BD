@@ -13,6 +13,10 @@
 
 [_] Complete project requirements 
 
+[_] Use all fields in Clienti
+
+[_] Add client address to admin page
+
 [_] Beautify the landing page
 
 [_] Tweak dress parameters (e.g.: adjust prices to current economy)
