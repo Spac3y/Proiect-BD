@@ -11,6 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRET_KEY'
 
+
 CORS(app, supports_credentials=True)
 db_config = {
 	'host':     os.getenv('MYSQL_HOST', 'localhost'),
@@ -47,9 +48,11 @@ def get_produse():
 	conn = db()
 	with conn.cursor() as cur:
 		cur.execute("""
-			SELECT p.id_produs, p.nume, p.pret, p.stoc, p.marime, p.imagine_url, c.nume_categorie
-			FROM Produse p LEFT JOIN Categorii c ON p.id_categorie = c.id_categorie
-		""")
+            SELECT p.id_produs, p.nume, p.pret, p.stoc, p.marime, 
+            p.culoare, p.imagine_url, c.nume_categorie
+            FROM Produse p 
+            LEFT JOIN Categorii c ON p.id_categorie = c.id_categorie
+        """)
 		rows = cur.fetchall()
 	conn.close()
 	return jsonify(rows)
@@ -137,6 +140,49 @@ def admin_comenzi():
 	for r in rows:
 		r['data_comanda'] = r['data_comanda'].strftime('%d.%m.%Y %H:%M')
 	return jsonify(rows)
+
+# =====================================================================
+# --- CERINȚE APLICAȚIE (ACTUALIZARE, ȘTERGERE, SUB-INTEROGĂRI, FUNCȚII) ---
+# =====================================================================
+
+@app.route('/api/admin/comanda/<int:id>/status', methods=['PUT'])
+def update_status(id):
+    if not session.get('admin'): return jsonify({'error': 'Unauthorized'}), 401
+    d = request.get_json()
+    conn = db()
+    with conn.cursor() as cur:
+        # Actualizează statusul (Cerință barem: UPDATE)
+        cur.execute("UPDATE Comenzi SET status_comanda = %s WHERE id_comanda = %s", (d.get('status'), id))
+        conn.commit()
+    conn.close()
+    return jsonify({'success': True})
+
+@app.route('/api/admin/comanda/<int:id>', methods=['DELETE'])
+def delete_comanda(id):
+    if not session.get('admin'): return jsonify({'error': 'Unauthorized'}), 401
+    conn = db()
+    with conn.cursor() as cur:
+        # Șterge detaliile și apoi comanda (Cerință barem: DELETE)
+        cur.execute("DELETE FROM Detalii_Comanda WHERE id_comanda = %s", (id,))
+        cur.execute("DELETE FROM Comenzi WHERE id_comanda = %s", (id,))
+        conn.commit()
+    conn.close()
+    return jsonify({'success': True})
+
+@app.route('/api/admin/stats')
+def admin_stats():
+    if not session.get('admin'): return jsonify({'error': 'Unauthorized'}), 401
+    conn = db()
+    stats = {}
+    with conn.cursor() as cur:
+        # Funcții agregate (COUNT, SUM) și sub-interogări conform baremului
+        cur.execute("SELECT COUNT(id_comanda) as total_comenzi, COALESCE(SUM(total), 0) as venituri FROM Comenzi")
+        stats['agregat'] = cur.fetchone()
+        
+        cur.execute("SELECT nume, pret FROM Produse WHERE pret > (SELECT AVG(pret) FROM Produse)")
+        stats['premium'] = cur.fetchall()
+    conn.close()
+    return jsonify(stats)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', debug=True, port=5000)
