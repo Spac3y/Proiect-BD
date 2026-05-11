@@ -5,3 +5,5 @@ temp/
 .venv
 *test*
 __pycache__
+*.pdf
+.claude

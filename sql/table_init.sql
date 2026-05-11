@@ -9,8 +9,8 @@ create table if not exists Categorii (
 create table if not exists Produse (
 	id_produs int primary key not null auto_increment,
     nume text not null,
-    pret real not null,
-    stoc int not null,
+    pret real not null check (pret > 0),
+    stoc int not null check (stoc >= 0),
     marime text not null,
     id_categorie int,
 	imagine_url text,
@@ -38,8 +38,8 @@ create table if not exists Detalii_Comanda (
     id_comanda int,
     id_produs int,
     id_client int,
-    cantitate int not null,
-    pret_unitar real not null,
+    cantitate int not null check (cantitate > 0),
+    pret_unitar real not null check (pret_unitar > 0),
     foreign key(id_comanda) references Comenzi(id_comanda),
     foreign key(id_produs) references Produse(id_produs),
     foreign key(id_client) references Clienti(id_client)

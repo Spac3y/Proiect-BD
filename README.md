@@ -11,15 +11,13 @@
 
 ## TODO:
 
-[_] Add & Delete Data from website
+[x] Add & Delete Data from website
 
-[_] Use all fields in Clienti
+[x] Use all fields in Clienti
 
-[_] Add client address to admin page (3 links between 2 tables)
+[x] Add client address to admin page (3 links between 2 tables)
 
 [_] Add 1 link between 3 tables
-
-[_] Beautify the landing page
 
 [x] Tweak dress parameters (e.g.: adjust prices to current economy)
 
