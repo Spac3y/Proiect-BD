@@ -223,6 +223,7 @@ async function loadOrders() {
 
     // Actualizare statistici
     document.getElementById('s-total').textContent = orders.length;
+    document.getElementById('s-pending').textContent = orders.filter(o => o.status === 'in asteptare').length;
     document.getElementById('s-revenue').textContent = orders.reduce((s, o) => s + parseFloat(o.total), 0).toFixed(2) + ' RON';
 
     const body = document.getElementById('orders-body');
