@@ -10,6 +10,9 @@
 ## Pls read ONBOARDING.md echipa
 
 ## TODO:
+
+[_] Complete project requirements 
+
 [_] Beautify the landing page
 
 [_] Tweak dress parameters (e.g.: adjust prices to current economy)
