@@ -90,6 +90,7 @@
 		tr:hover td {
 			background: #fafafa;
 		}
+
 	</style>
 </head>
 
@@ -141,12 +142,21 @@
 						<th>Status</th> <th>Actions</th> </tr>
 				</thead>
 				<tbody id="orders-body"></tbody>
-			</table>
+			</table> <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;">
+				
+				<div id="low-stock-container">
+					<h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Low Stock Products</h3>
+					<ul id="stoc-mic-list" style="list-style: disc; padding-left: 1.2rem; color: #c0392b; line-height: 1.6;">
+						</ul>
+				</div>
 
-			<h3 style="margin-top:2rem">Low Stock Products</h3>
-			<ul id="stoc-mic-list" style="font-size:0.85rem;color:#c0392b"></ul>
-		</div>
-	</div>
-</body>
+				<div>
+					<h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Produse Premium (Peste medie)</h3>
+					<ul id="premium-list" style="list-style: disc; padding-left: 1.2rem; color: #333; line-height: 1.6;">
+						</ul>
+				</div>
+
+			</div>
+		</div> </div> </body>
 
 </html>

@@ -196,6 +196,7 @@ async function adminLogin() {
       document.getElementById('dash-section').style.display  = 'block';
       document.getElementById('dash-user').textContent = data.username;
       loadOrders();
+      loadAdminStats();
     } else {
       msg.textContent = data.error;
       msg.className = 'msg error show';
@@ -277,4 +278,27 @@ async function deleteOrder(id) {
     if(!confirm('Delete this order?')) return;
     await fetch(`${API}/api/admin/comanda/${id}`, { method: 'DELETE', credentials: 'include' });
     loadOrders();
+}
+
+async function loadAdminStats() {
+    try {
+        const res = await fetch(`${API}/api/admin/stats`, { credentials: 'include' });
+        const data = await res.json();
+
+        // 1. Actualizăm lista de produse Premium
+        const premiumList = document.getElementById('premium-list');
+        if (premiumList && data.premium) {
+            premiumList.innerHTML = data.premium.map(p => `
+                <li>${p.nume} — <strong>${parseFloat(p.pret).toFixed(2)} RON</strong></li>
+            `).join('');
+        }
+
+        // 2. Opțional: Putem actualiza cifrele de sus (Total & Revenue) direct din baza de date
+        if (data.agregat) {
+            document.getElementById('s-total').textContent = data.agregat.total_comenzi;
+            document.getElementById('s-revenue').textContent = parseFloat(data.agregat.venituri).toFixed(2) + ' RON';
+        }
+    } catch (e) {
+        console.error('Eroare la încărcarea statisticilor premium:', e);
+    }
 }
