@@ -42,6 +42,7 @@ def contact():
 def admin():
 	return render_template('admin.html')
 
+# TODO: 
 
 @app.route('/api/produse')
 def get_produse():
@@ -69,6 +70,8 @@ def get_produs(id):
 		row = cur.fetchone()
 	conn.close()
 	return jsonify(row) if row else (jsonify({'error': 'Not found'}), 404)
+
+# TODO: Inserare in tabelele Clienti, Comenzi si Detalii_Comanda
 
 @app.route('/api/comanda', methods=['POST'])
 def post_comanda():
@@ -119,6 +122,8 @@ def admin_logout():
 	session.clear()
 	return jsonify({'success': True})
 
+# TODO: Vizualizare date din 4 tabele
+
 @app.route('/api/admin/comenzi')
 def admin_comenzi():
 	if not session.get('admin'):
@@ -141,9 +146,7 @@ def admin_comenzi():
 	conn.close()
 	return jsonify(rows)
 
-# =====================================================================
-# --- CERINȚE APLICAȚIE (ACTUALIZARE, ȘTERGERE, SUB-INTEROGĂRI, FUNCȚII) ---
-# =====================================================================
+# TODO: Actualizare status comanda
 
 @app.route('/api/admin/comanda/<int:id>/status', methods=['PUT'])
 def update_status(id):
@@ -157,6 +160,8 @@ def update_status(id):
     conn.close()
     return jsonify({'success': True})
 
+# TODO: Stergere comanda
+
 @app.route('/api/admin/comanda/<int:id>', methods=['DELETE'])
 def delete_comanda(id):
     if not session.get('admin'): return jsonify({'error': 'Unauthorized'}), 401
@@ -168,6 +173,8 @@ def delete_comanda(id):
         conn.commit()
     conn.close()
     return jsonify({'success': True})
+
+# TODO: Sub-interogare cu avg
 
 @app.route('/api/admin/stats')
 def admin_stats():
