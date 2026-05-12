@@ -154,7 +154,6 @@ def update_status(id):
     d = request.get_json()
     conn = db()
     with conn.cursor() as cur:
-        # Actualizează statusul (Cerință barem: UPDATE)
         cur.execute("UPDATE Comenzi SET status_comanda = %s WHERE id_comanda = %s", (d.get('status'), id))
         conn.commit()
     conn.close()
@@ -167,14 +166,13 @@ def delete_comanda(id):
     if not session.get('admin'): return jsonify({'error': 'Unauthorized'}), 401
     conn = db()
     with conn.cursor() as cur:
-        # Șterge detaliile și apoi comanda (Cerință barem: DELETE)
         cur.execute("DELETE FROM Detalii_Comanda WHERE id_comanda = %s", (id,))
         cur.execute("DELETE FROM Comenzi WHERE id_comanda = %s", (id,))
         conn.commit()
     conn.close()
     return jsonify({'success': True})
 
-# TODO: Sub-interogare cu avg
+# TODO: Sub-interogare (avg) si functii agregate (count, sum)
 
 @app.route('/api/admin/stats')
 def admin_stats():
@@ -182,7 +180,6 @@ def admin_stats():
     conn = db()
     stats = {}
     with conn.cursor() as cur:
-        # Funcții agregate (COUNT, SUM) și sub-interogări conform baremului
         cur.execute("SELECT COUNT(id_comanda) as total_comenzi, COALESCE(SUM(total), 0) as venituri FROM Comenzi")
         stats['agregat'] = cur.fetchone()
         
