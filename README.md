@@ -1,5 +1,5 @@
 # Proiect-BD
-
+Proiect la materia Baze de date, Anul 2 Sem 2, ETTI Politehnica Bucuresti
 # Magazin de rochii elegante 
 
 ### Membrii echipei 
